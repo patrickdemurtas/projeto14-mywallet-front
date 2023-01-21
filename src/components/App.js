@@ -4,10 +4,20 @@ import { useState } from "react";
 
 
 function App() {
-    return(
-          <Container>
+    return (
+        <Container>
 
-          </Container>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<TelaLogin />} />
+                    <Route path="/cadastro" element={<TelaCadastro />} />
+                    <Route path="/home" element={<TelaHome />} />
+                    <Route path="/nova-entrada" element={<TelaNovaEntrada />} />
+                    <Route path="/nova-saida" element={<TelaNovaSaida />} />
+                </Routes>
+            </BrowserRouter>
+
+        </Container>
     )
 }
 
