@@ -1,6 +1,11 @@
 import styled from "styled-components";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
+import TelaCadastro from "./TelaCadastro";
+import TelaLogin from "./TelaLogin";
+import TelaHome from "./TelaHome";
+import TelaNovaEntrada from "./TelaNovaEntrada";
+import TelaNovaSaida from "./TelaNovaSaida";
 
 
 function App() {
@@ -26,7 +31,7 @@ export default App
 const Container = styled.div`
 width: 375px;
 height: 667px;
-background-color: #9567BE;
+background-color: #8C11BE;
 margin: 0 auto;
 display: flex;
 flex-direction: column;
