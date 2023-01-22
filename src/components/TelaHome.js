@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import logOut from "../assets/logOut.png"
 import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa'
 import { RiLogoutBoxRLine } from 'react-icons/ri'
 
@@ -35,6 +34,46 @@ export default function TelaHome() {
                     <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
                     <Valor><p>39,90</p></Valor>
                 </Elemento>
+
+                <Elemento>
+                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
+                    <Valor><p>39,90</p></Valor>
+                </Elemento>
+
+                <Elemento>
+                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
+                    <Valor><p>39,90</p></Valor>
+                </Elemento>
+
+                <Elemento>
+                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
+                    <Valor><p>39,90</p></Valor>
+                </Elemento>
+
+                <Elemento>
+                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
+                    <Valor><p>39,90</p></Valor>
+                </Elemento>
+
+                <Elemento>
+                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
+                    <Valor><p>39,90</p></Valor>
+                </Elemento>
+
+                <Elemento>
+                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
+                    <Valor><p>39,90</p></Valor>
+                </Elemento>
+
+                <Elemento>
+                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
+                    <Valor><p>39,90</p></Valor>
+                </Elemento>
+
+                
+
+                
+                
 
                 <FooterSaldo>
                     <h1>SALDO</h1>
@@ -102,7 +141,6 @@ width: 326px;
 height: 446px;
 border-radius: 5px;
 background-color: #FFFFFF;
-position: relative;
 overflow-y: scroll;
 `
 
@@ -173,12 +211,9 @@ p{
 const FooterSaldo = styled.div`
 display: flex;
 justify-content: space-between;
-position: absolute;
-bottom: 0;
-left: 0;
 width: 100%;
 margin-bottom: 10px;
-margin-top: 10px;
+margin-top: 80px;
 
 h1{
     font-family: 'Raleway', sans-serif;
