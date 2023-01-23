@@ -17,6 +17,7 @@ export default function TelaHome() {
     const Auth = localStorage.getItem("token")
     const Name = localStorage.getItem("name")
 
+// VARIÁVEL DE AMBIENTE NÃO FUNCIONOU, ENTÃO INSERI MANUALMENTE
     const url = "http://localhost:5010"
 
     const Navigate = useNavigate()

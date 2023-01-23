@@ -5,7 +5,8 @@ import { useState } from "react";
 import dayjs from "dayjs";
 
 export default function TelaNovaSaida() {
-
+    
+    // VARIÁVEL DE AMBIENTE NÃO FUNCIONOU, ENTÃO INSERI MANUALMENTE
     const url = "http://localhost:5010"
     const Auth = localStorage.getItem("token")
 

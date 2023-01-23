@@ -9,6 +9,7 @@ import { useState } from "react";
 
 export default function TelaCadastro() {
 
+// VARIÁVEL DE AMBIENTE NÃO FUNCIONOU, ENTÃO INSERI MANUALMENTE
 const url = "http://localhost:5010"
 
 const [name, setName] = useState('')

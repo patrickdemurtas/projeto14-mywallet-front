@@ -9,7 +9,8 @@ import NameContext from "../contexts/NameContext";
 export default function TelaLogin() {
 
    const Navigate = useNavigate()
-
+   
+   // VARIÁVEL DE AMBIENTE NÃO FUNCIONOU, ENTÃO INSERI MANUALMENTE
    const url = "http://localhost:5010"
 
    const [email, setEmail] = useState("")

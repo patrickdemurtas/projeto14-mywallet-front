@@ -6,7 +6,8 @@ import { createContext, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
 
 export default function TelaNovaEntrada() {
-
+     
+    // VARIÁVEL DE AMBIENTE NÃO FUNCIONOU, ENTÃO INSERI MANUALMENTE
     const url = "http://localhost:5010"
     const Auth = localStorage.getItem("token")
 
