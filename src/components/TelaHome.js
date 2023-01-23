@@ -4,15 +4,18 @@ import axios from "axios";
 import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa'
 import { RiLogoutBoxRLine } from 'react-icons/ri'
 
+
 export default function TelaHome() {
 
+
+const Name = localStorage.getItem("name")
 
     return (
 
         <>
 
             <HeaderHome>
-                <p>Olá, Fulano</p>
+                <p>Olá, {Name}</p>
                 <RiLogoutBoxRLine style={{ color: "white", fontSize: "30", marginRight: "20px", cursor: "pointer" }} />
             </HeaderHome>
 
