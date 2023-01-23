@@ -13,7 +13,7 @@ export default function TelaHome() {
 
             <HeaderHome>
                 <p>Olá, Fulano</p>
-                <RiLogoutBoxRLine  style={{color:"white", fontSize: "30", marginRight:"20px", cursor:"pointer"}}/>
+                <RiLogoutBoxRLine style={{ color: "white", fontSize: "30", marginRight: "20px", cursor: "pointer" }} />
             </HeaderHome>
 
 
@@ -70,10 +70,10 @@ export default function TelaHome() {
                     <Valor><p>39,90</p></Valor>
                 </Elemento>
 
-                
 
-                
-                
+
+
+
 
                 <FooterSaldo>
                     <h1>SALDO</h1>
@@ -85,15 +85,19 @@ export default function TelaHome() {
 
             <FooterEntradaSaida>
 
-                <Contabil>
-                    <FaPlusCircle style={{color:"white"}}/>
-                    <p>Nova<br/>entrada</p>
-                </Contabil>
+                <Link to="/nova-entrada" style={{ textDecoration: 'none' }}>
+                    <Contabil>
+                        <FaPlusCircle style={{ color: "white" }} />
+                        <p>Nova<br />entrada</p>
+                    </Contabil>
+                </Link>
 
-                <Contabil>
-                <FaMinusCircle style={{color:"white"}}/>
-                    <p>Nova<br/>saída</p>
-                </Contabil>
+                <Link to="/nova-saida" style={{ textDecoration: 'none' }}>
+                    <Contabil>
+                        <FaMinusCircle style={{ color: "white" }} />
+                        <p>Nova<br />saída</p>
+                    </Contabil>
+                </Link>
 
             </FooterEntradaSaida>
 
