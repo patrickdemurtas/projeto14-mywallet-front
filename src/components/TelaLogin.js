@@ -10,7 +10,7 @@ export default function TelaLogin() {
 
    const Navigate = useNavigate()
 
-   const url = "http://localhost:5000"
+   const url = "http://localhost:5010"
 
    const [email, setEmail] = useState("")
    const [password, setPassword] = useState("")

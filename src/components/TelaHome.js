@@ -1,14 +1,88 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { FaPlusCircle, FaMinusCircle } from 'react-icons/fa'
+import { FaPlusCircle, FaMinusCircle, FaGreaterThanEqual } from 'react-icons/fa'
 import { RiLogoutBoxRLine } from 'react-icons/ri'
+import { useContext, useEffect, useState } from "react";
+import AuthContext from "../contexts/AuthContext";
+
 
 
 export default function TelaHome() {
 
+   const green = '#03AC00'
+   const red = '#C70000'
+   let final;
 
-const Name = localStorage.getItem("name")
+    const Auth = localStorage.getItem("token")
+    const Name = localStorage.getItem("name")
+
+    const url = "http://localhost:5010"
+
+    const Navigate = useNavigate()
+
+
+    const [balancete, setBalancete] = useState([])
+    
+
+
+
+    function logOut() {
+        localStorage.removeItem("name")
+        localStorage.removeItem("token")
+        Navigate("/")
+
+    }
+
+    useEffect(() => {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${Auth}`
+            }
+        }
+        const promise = axios.get(`${url}/balance`, config)
+        promise.then((res) => {
+
+            setBalancete(res.data.adds)
+
+        })
+        promise.catch((error) => alert('erro'))
+    }, [])
+
+    console.log(balancete)
+
+
+
+
+    function renderizarMensagemVazia() {
+
+        if (balancete.length === 0) {
+
+
+
+            return (
+                <>
+                    <MensagemVaziaUm><p>Não há registros de</p></MensagemVaziaUm><MensagemVaziaDois><p>entrada ou saída</p></MensagemVaziaDois>
+                </>
+
+            )
+        }
+    }
+
+
+
+    function saldo(){
+         const ganhos = balancete.filter( b => b.type === "in").map( b => b.value )
+         const perdas = balancete.filter( b => b.type === "out").map( b => b.value )
+       
+         const ganhosTotais = ganhos.map(Number).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+         const perdasTotais = perdas.map(Number).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+         final = ganhosTotais - perdasTotais
+         console.log(final)
+
+    }
+saldo()
 
     return (
 
@@ -16,71 +90,29 @@ const Name = localStorage.getItem("name")
 
             <HeaderHome>
                 <p>Olá, {Name}</p>
-                <RiLogoutBoxRLine style={{ color: "white", fontSize: "30", marginRight: "20px", cursor: "pointer" }} />
+                <RiLogoutBoxRLine onClick={logOut} style={{ color: "white", fontSize: "30", marginRight: "20px", cursor: "pointer" }} />
             </HeaderHome>
 
 
 
             <ContainerSaldo>
 
-                <Elemento>
-                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
-                    <Valor><p>39,90</p></Valor>
-                </Elemento>
 
-                <Elemento>
-                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
-                    <Valor><p>39,90</p></Valor>
-                </Elemento>
+                {renderizarMensagemVazia()}
 
-                <Elemento>
-                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
-                    <Valor><p>39,90</p></Valor>
-                </Elemento>
+                {balancete.map((b) => (
+                    <Elemento>
+                        <DataDescricao><h1>{b.date}</h1> <p>{b.desc}</p></DataDescricao><Valor green={green} red={red} tipo={b.type}><p>{b.value}</p></Valor>
+                    </Elemento>
 
-                <Elemento>
-                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
-                    <Valor><p>39,90</p></Valor>
-                </Elemento>
-
-                <Elemento>
-                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
-                    <Valor><p>39,90</p></Valor>
-                </Elemento>
-
-                <Elemento>
-                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
-                    <Valor><p>39,90</p></Valor>
-                </Elemento>
-
-                <Elemento>
-                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
-                    <Valor><p>39,90</p></Valor>
-                </Elemento>
-
-                <Elemento>
-                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
-                    <Valor><p>39,90</p></Valor>
-                </Elemento>
-
-                <Elemento>
-                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
-                    <Valor><p>39,90</p></Valor>
-                </Elemento>
-
-                <Elemento>
-                    <DataDescricao><h1>30/11</h1> <p>Almoço mãe</p></DataDescricao>
-                    <Valor><p>39,90</p></Valor>
-                </Elemento>
+                ))}
 
 
 
 
-
-
-                <FooterSaldo>
+                <FooterSaldo green={green} red={red} final={final}>
                     <h1>SALDO</h1>
-                    <h2>345,98</h2>
+                    <h2>{final}</h2>
                 </FooterSaldo>
 
 
@@ -211,7 +243,10 @@ p{
     font-size: 16px;
     line-height: 19px;
     font-weight: 400;
-    color: #03AC00;  
+    color: ${props => {
+        if (props.tipo === "in") return (props.green)
+        return (props.red)
+    }};  
 }
 `
 
@@ -236,7 +271,10 @@ h2{
     font-size: 17px;
     line-height: 20px;
     font-weight: 400;
-    color: #03AC00;
+    color: ${props => {
+            if(props.final >= 0) return (props.green)
+            return (props.red)
+    }};
     margin-right: 10px;
 }
 `

@@ -9,7 +9,7 @@ import { useState } from "react";
 
 export default function TelaCadastro() {
 
-const url = "http://localhost:5000"
+const url = "http://localhost:5010"
 
 const [name, setName] = useState('')
 const [email, setEmail] = useState('')

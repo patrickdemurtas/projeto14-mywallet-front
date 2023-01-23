@@ -1,8 +1,45 @@
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import { json, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { createContext, useState } from "react";
+import AuthContext from "../contexts/AuthContext";
 
 export default function TelaNovaEntrada() {
+
+    const url = "http://localhost:5010"
+    const Auth = localStorage.getItem("token")
+
+    const Navigate = useNavigate()
+
+    const [value, setValue] = useState('')
+    const [desc, setDesc] = useState('')
+
+    function entrada(e) {
+        e.preventDefault()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${Auth}`
+            }
+        }
+
+        const corpo = { date: dayjs().format("DD/MM"), desc: desc, value: value, type: "in" }
+
+        const promise = axios.post(`${url}/balance`, corpo, config)
+
+        promise.then((res) => {
+            console.log(res)
+            Navigate("/home")
+
+        })
+          promise.catch((error) => alert('Não foi possível seguir com a solicitação'))
+
+
+    }
+
+
+
 
     return (
 
@@ -11,13 +48,15 @@ export default function TelaNovaEntrada() {
             <HeaderNovaEntrada>Nova entrada</HeaderNovaEntrada>
 
             <ConteudoNovaEntrada>
-                <FormsNovaEntrada>
 
-                    <input type="number" placeholder="Valor" required />
-                    <input placeholder="Descrição" required />
+                <FormsNovaEntrada onSubmit={entrada}>
+
+                    <input type="number" placeholder="Valor" value={value} onChange={e => setValue(e.target.value)} required />
+                    <input placeholder="Descrição" value={desc} onChange={e => setDesc(e.target.value)} required />
                     <button type="submit"><p>Salvar entrada</p></button>
 
                 </FormsNovaEntrada>
+
             </ConteudoNovaEntrada>
 
         </>

@@ -1,8 +1,41 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
+import dayjs from "dayjs";
 
 export default function TelaNovaSaida() {
+
+    const url = "http://localhost:5010"
+    const Auth = localStorage.getItem("token")
+
+    const Navigate = useNavigate()
+
+    const [value, setValue] = useState('')
+    const [desc, setDesc] = useState('')
+
+    function saida(e) {
+        e.preventDefault()
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${Auth}`
+            }
+        }
+
+        const corpo = { date: dayjs().format("DD/MM"), desc: desc, value: value, type: "out" }
+
+        const promise = axios.post(`${url}/balance`, corpo, config)
+
+        promise.then((res) => {
+            console.log(res)
+            Navigate("/home")
+
+        })
+          promise.catch((error) => alert('Não foi possível seguir com a solicitação'))
+
+
+    }
 
     return (
 
@@ -11,10 +44,10 @@ export default function TelaNovaSaida() {
             <HeaderNovaSaida>Nova saída</HeaderNovaSaida>
 
             <ConteudoNovaSaida>
-                <FormsNovaSaida>
+                <FormsNovaSaida onSubmit={saida}>
 
-                    <input type="number" placeholder="Valor" required />
-                    <input placeholder="Descrição" required />
+                    <input type="number" placeholder="Valor" value={value} onChange={e => setValue(e.target.value)} required />
+                    <input placeholder="Descrição" value={desc} onChange={e => setDesc(e.target.value)} required />
                     <button type="submit"><p>Salvar saída</p></button>
 
                 </FormsNovaSaida>
