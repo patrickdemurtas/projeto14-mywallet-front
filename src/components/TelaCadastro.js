@@ -1,8 +1,36 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState } from "react";
+
+
+
+
 
 export default function TelaCadastro() {
+
+const url = "http://localhost:5000"
+
+const [name, setName] = useState('')
+const [email, setEmail] = useState('')
+const [password, setPassword] = useState('')
+const [confirmPassword, setConfirmPassword] = useState('')
+
+const Navigate = useNavigate()
+
+function fazerCadastro(e){
+    e.preventDefault()
+
+    const corpo = {name, email, password, confirmPassword}
+    
+
+    const promise = axios.post(`${url}/sign-up`, corpo)
+      promise.then((res) => {
+        alert('Cadastro realizado com sucesso!')
+        Navigate('/')
+      })
+      promise.catch((error) => alert(error.response.data))
+}
 
 
     return (
@@ -14,12 +42,13 @@ export default function TelaCadastro() {
             </Logo>
 
             <ConteudoCadastro>
-                <FormsCadastro>
 
-                    <input placeholder="Nome" required />
-                    <input type="email" placeholder="E-mail" required />
-                    <input type="password" placeholder="Senha" required />
-                    <input type="password" placeholder="Confirme a senha" required />
+                <FormsCadastro onSubmit={fazerCadastro}>
+
+                    <input placeholder="Nome"  value={name} onChange={ e => setName(e.target.value)} required />
+                    <input type="email" placeholder="E-mail" value={email} onChange={ e => setEmail(e.target.value)} required />
+                    <input type="password" placeholder="Senha" value={password} onChange={ e => setPassword(e.target.value)} required />
+                    <input type="password" placeholder="Confirme a senha" value={confirmPassword} onChange={ e => setConfirmPassword(e.target.value)} required />
                     <button type="submit"><p>Cadastrar</p></button>
 
                 </FormsCadastro>

@@ -6,11 +6,27 @@ import TelaLogin from "./TelaLogin";
 import TelaHome from "./TelaHome";
 import TelaNovaEntrada from "./TelaNovaEntrada";
 import TelaNovaSaida from "./TelaNovaSaida";
+import AuthContext from "../contexts/AuthContext";
 
 
 function App() {
+
+   const [token, setToken] = useState('')
+
+   const Auth = localStorage.getItem("token")
+
+   function storageToken(token) {
+    if(token !== null){
+        setToken(token)
+        localStorage.setItem("token", token)
+    }
+   }
+
+
     return (
         <Container>
+
+            <AuthContext.Provider value={{ token, setToken, storageToken, Auth}} >
 
             <BrowserRouter>
                 <Routes>
@@ -21,6 +37,8 @@ function App() {
                     <Route path="/nova-saida" element={<TelaNovaSaida />} />
                 </Routes>
             </BrowserRouter>
+
+            </AuthContext.Provider>
 
         </Container>
     )

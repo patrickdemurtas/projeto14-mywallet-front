@@ -1,9 +1,38 @@
 import styled from "styled-components";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import AuthContext from "../contexts/AuthContext";
 
 
 export default function TelaLogin() {
+
+   const Navigate = useNavigate()
+   const url = "http://localhost:5000"
+
+   const [email, setEmail] = useState("")
+   const [password, setPassword] = useState("")
+   
+   const { token, setToken, storageToken } = useContext(AuthContext)
+
+
+   function fazerLogin(e) {
+       e.preventDefault()
+
+       const corpo = { email, password }
+
+       const promise = axios.post(`${url}/sign-in`, corpo)
+       promise.then((res) => {
+        storageToken(res.data)
+        Navigate("/home")
+        console.log(token)
+       })
+       promise.catch((error) => alert(error.response.data))
+
+       
+   }
+
+
 
     return (
         <>
@@ -14,9 +43,9 @@ export default function TelaLogin() {
 
             <ConteudoLogin>
 
-                <FormsLogin>
-                    <input type="email" placeholder="E-mail" required />
-                    <input type="password" placeholder="Senha" required />
+                <FormsLogin onSubmit={fazerLogin}>
+                    <input type="email" placeholder="E-mail" value={email} onChange={ e => setEmail(e.target.value) } required />
+                    <input type="password" placeholder="Senha" value={password} onChange={ e => setPassword(e.target.value)} required />
                     <button type="submit"><p>Entrar</p></button>
                 </FormsLogin>
 
