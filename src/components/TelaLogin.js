@@ -3,17 +3,20 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import AuthContext from "../contexts/AuthContext";
+import NameContext from "../contexts/NameContext";
 
 
 export default function TelaLogin() {
 
    const Navigate = useNavigate()
+
    const url = "http://localhost:5000"
 
    const [email, setEmail] = useState("")
    const [password, setPassword] = useState("")
    
    const { token, setToken, storageToken } = useContext(AuthContext)
+   const { name, setName, storageName } = useContext(NameContext)
 
 
    function fazerLogin(e) {
@@ -23,9 +26,10 @@ export default function TelaLogin() {
 
        const promise = axios.post(`${url}/sign-in`, corpo)
        promise.then((res) => {
-        storageToken(res.data)
+        storageToken(res.data.token)
+        storageName(res.data.name)
         Navigate("/home")
-        console.log(token)
+        console.log(res)
        })
        promise.catch((error) => alert(error.response.data))
 
